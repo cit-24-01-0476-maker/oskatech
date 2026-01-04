@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom"
 import Container from "./Container.jsx"
 import Logo from "./Logo.jsx"
+import OfferBar from "./OfferBar.jsx"
 import { MessageCircle, Send, Menu, X } from "lucide-react"
 import { useMemo, useState } from "react"
 import { SITE } from "../config.js"
@@ -24,6 +25,7 @@ export default function Navbar() {
       { to: "/", label: "Home" },
       { to: "/store", label: "Store" },
       { to: "/downloads", label: "Downloads" },
+      { to: "/offers", label: "Offers" }, // ✅ add offers in menu
       { to: "/faq", label: "FAQ" },
       { to: "/contact", label: "Contact" },
     ],
@@ -31,127 +33,119 @@ export default function Navbar() {
   )
 
   return (
-    <div className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur">
-      <Container className="flex items-center justify-between py-3">
-        <NavLink to="/" className="focus:outline-none">
-          <Logo />
-        </NavLink>
+    <>
+      <div className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur">
+        <Container className="flex items-center justify-between py-3">
+          <NavLink to="/" className="focus:outline-none">
+            <Logo />
+          </NavLink>
 
-        <div className="hidden items-center gap-1 md:flex">
-          {links.map((l) => (
-            <NavLink
-              key={l.to}
-              to={l.to}
-              className={({ isActive }) =>
-                `${linkBase} ${isActive ? "bg-white/5 border-white/10" : ""}`
-              }
+          <div className="hidden items-center gap-1 md:flex">
+            {links.map((l) => (
+              <NavLink
+                key={l.to}
+                to={l.to}
+                className={({ isActive }) =>
+                  `${linkBase} ${isActive ? "bg-white/5 border-white/10" : ""}`
+                }
+              >
+                {l.label}
+              </NavLink>
+            ))}
+          </div>
+
+          {/* Desktop socials */}
+          <div className="hidden items-center gap-2 md:flex">
+            <a className="btn-fb" href={SITE.facebookPage} target="_blank" rel="noreferrer">
+              <FacebookIcon className="h-4 w-4" />
+              Facebook
+            </a>
+
+            <a className="btn-tg" href={`https://t.me/${SITE.telegramUsername}`} target="_blank" rel="noreferrer">
+              <Send className="h-4 w-4" />
+              Telegram
+            </a>
+
+            <a
+              className="btn-wa"
+              href={`https://wa.me/${(SITE.whatsappNumber || "").replace(/\D/g, "")}`}
+              target="_blank"
+              rel="noreferrer"
             >
-              {l.label}
-            </NavLink>
-          ))}
-        </div>
+              <MessageCircle className="h-4 w-4" />
+              WhatsApp
+            </a>
+          </div>
 
-        {/* Desktop socials */}
-        <div className="hidden items-center gap-2 md:flex">
-          <a
-            className="btn-fb"
-            href={SITE.facebookPage}
-            target="_blank"
-            rel="noreferrer"
-            title="Facebook Page"
+          <button
+            className="md:hidden btn-ghost"
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Toggle menu"
           >
-            <FacebookIcon className="h-4 w-4" />
-            Facebook
-          </a>
+            {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          </button>
+        </Container>
 
-          <a
-            className="btn-tg"
-            href={`https://t.me/${SITE.telegramUsername}`}
-            target="_blank"
-            rel="noreferrer"
-            title="Telegram"
-          >
-            <Send className="h-4 w-4" />
-            Telegram
-          </a>
+        {/* Mobile menu */}
+        {open && (
+          <div className="md:hidden border-t border-white/10">
+            <Container className="py-3">
+              <div className="flex flex-col gap-2">
+                {links.map((l) => (
+                  <NavLink
+                    key={l.to}
+                    to={l.to}
+                    onClick={() => setOpen(false)}
+                    className={({ isActive }) =>
+                      `${linkBase} ${isActive ? "bg-white/5 border-white/10" : ""}`
+                    }
+                  >
+                    {l.label}
+                  </NavLink>
+                ))}
 
-          <a
-            className="btn-wa"
-            href={`https://wa.me/${(SITE.whatsappNumber || "").replace(/\D/g, "")}`}
-            target="_blank"
-            rel="noreferrer"
-            title="WhatsApp"
-          >
-            <MessageCircle className="h-4 w-4" />
-            WhatsApp
-          </a>
-        </div>
+                <div className="mt-2 grid grid-cols-3 gap-2">
+                  <a
+                    className="btn-fb"
+                    href={SITE.facebookPage}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => setOpen(false)}
+                  >
+                    <FacebookIcon className="h-4 w-4" />
+                    FB
+                  </a>
 
-        <button
-          className="md:hidden btn-ghost"
-          onClick={() => setOpen((v) => !v)}
-          aria-label="Toggle menu"
-        >
-          {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-        </button>
-      </Container>
+                  <a
+                    className="btn-tg"
+                    href={`https://t.me/${SITE.telegramUsername}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => setOpen(false)}
+                  >
+                    <Send className="h-4 w-4" />
+                    TG
+                  </a>
 
-      {/* Mobile menu */}
-      {open && (
-        <div className="md:hidden border-t border-white/10">
-          <Container className="py-3">
-            <div className="flex flex-col gap-2">
-              {links.map((l) => (
-                <NavLink
-                  key={l.to}
-                  to={l.to}
-                  onClick={() => setOpen(false)}
-                  className={({ isActive }) =>
-                    `${linkBase} ${isActive ? "bg-white/5 border-white/10" : ""}`
-                  }
-                >
-                  {l.label}
-                </NavLink>
-              ))}
-
-              <div className="mt-2 grid grid-cols-3 gap-2">
-                <a
-                  className="btn-fb"
-                  href={SITE.facebookPage}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() => setOpen(false)}
-                >
-                  <FacebookIcon className="h-4 w-4" />
-                  FB
-                </a>
-
-                <a
-                  className="btn-tg"
-                  href={`https://t.me/${SITE.telegramUsername}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() => setOpen(false)}
-                >
-                  <Send className="h-4 w-4" />
-                  TG
-                </a>
-
-                <a
-                  className="btn-wa"
-                  href={`https://wa.me/${(SITE.whatsappNumber || "").replace(/\D/g, "")}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() => setOpen(false)}
-                >
-                  <MessageCircle className="h-4 w-4" />
-                  WA
-                </a>
+                  <a
+                    className="btn-wa"
+                    href={`https://wa.me/${(SITE.whatsappNumber || "").replace(/\D/g, "")}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => setOpen(false)}
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                    WA
+                  </a>
+                </div>
               </div>
-            </div>
-          </Container>
-        </div>
-      )}
-    </div>
+            </Container>
+          </div>
+        )}
+      </div>
+
+      {/* ✅ Offer banner under navbar */}
+      <OfferBar />
+    </>
   )
 }
