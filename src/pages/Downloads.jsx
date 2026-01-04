@@ -14,7 +14,7 @@ export default function Downloads() {
 
       <div className="grid gap-5 md:grid-cols-2">
         {DOWNLOADS.map((d) => (
-          <div key={d.id} className="glass rounded-3xl p-5">
+          <div key={d.id} className="glass rounded-3xl p-5 overflow-hidden">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <div className="badge w-fit">{d.kind}</div>

@@ -17,7 +17,8 @@ export default function Home() {
       <Hero />
       <StatStrip />
 
-      <Container className="py-10">
+      {/* ✅ slightly tighter */}
+      <Container className="py-8 lg:py-10">
         <SectionTitle
           eyebrow="Featured"
           title="Popular services"
@@ -30,14 +31,15 @@ export default function Home() {
           ))}
         </div>
 
-        <div className="mt-8 flex justify-center">
+        <div className="mt-7 flex justify-center">
           <NavLink to="/store" className="btn-ghost">
             View full store <ArrowRight className="h-4 w-4" />
           </NavLink>
         </div>
       </Container>
 
-      <Container className="pb-14">
+      {/* ✅ reduce bottom padding a bit */}
+      <Container className="pb-10 lg:pb-12">
         <div className="glass rounded-3xl p-6 md:p-8">
           <div className="grid gap-6 md:grid-cols-2 md:items-center">
             <div>

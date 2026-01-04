@@ -2,7 +2,7 @@ import { ShoppingCart, Clock, ShieldCheck } from "lucide-react"
 
 export default function ProductCard({ product, onOrder }) {
   return (
-    <div className="glass rounded-3xl p-5 hover:shadow-glow transition">
+    <div className="glass rounded-3xl p-5 transition hover:shadow-glow hover:-translate-y-1">
       <div className="flex items-start justify-between gap-4">
         <div>
           <div className="badge w-fit">{product.category}</div>

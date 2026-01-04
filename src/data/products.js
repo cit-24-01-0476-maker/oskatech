@@ -1,54 +1,106 @@
 export const PRODUCTS = [
+  // ===================== AI =====================
   {
-    id: "ai-subscription-setup",
-    title: "AI Subscription Setup (Official)",
+    id: "chatgpt-plus-setup",
+    title: "ChatGPT Plus – Setup Service (Official)",
     category: "AI",
-    price: "From Rs. 1,000",
-    duration: ["1 Month", "3 Months", "12 Months"],
-    badges: ["Fast delivery", "Official billing"],
+    price: "Rs. 1,000 – Rs. 2,000",
+    duration: ["1 Month – Rs. 1,000", "1 Month (Private) – Rs. 2,000"],
+    badges: ["Fast delivery", "Guided setup"],
     description:
-      "We help you activate and configure an official subscription (your own account) for supported AI tools. Includes login/setup support and basic usage tips.",
+      "We guide you to activate and set up ChatGPT Plus on your own account (official). Includes login/setup help + basic usage tips.",
     delivery: "10–60 minutes (typical)",
     disclaimer:
-      "Customer must own/subscribe officially. No shared accounts."
+      "Official/authorized only. No shared passwords or unauthorized access."
   },
   {
-    id: "design-tool-setup",
-    title: "Design Tool Subscription Setup (Official)",
+    id: "gemini-setup",
+    title: "Gemini AI – Setup Service (Official)",
+    category: "AI",
+    price: "Rs. 1,000 – Rs. 2,500",
+    duration: ["1 Month – Rs. 1,000", "3 Months – Rs. 2,500"],
+    badges: ["Secure", "Fast help"],
+    description:
+      "Activation + setup guidance for your Gemini subscription (official).",
+    delivery: "Same day",
+    disclaimer:
+      "Official/authorized only."
+  },
+  {
+    id: "perplexity-pro-setup",
+    title: "Perplexity AI Pro – Setup Service (Official)",
+    category: "AI",
+    price: "Rs. 1,000 – Rs. 2,500",
+    duration: ["1 Month – Rs. 1,000", "3 Months – Rs. 2,500"],
+    badges: ["Pro features", "Guided setup"],
+    description:
+      "Setup support for Perplexity Pro on your own account (official).",
+    delivery: "Same day",
+    disclaimer:
+      "Official/authorized only."
+  },
+
+  // ===================== DESIGN =====================
+  {
+    id: "canva-pro-setup",
+    title: "Canva Pro – Setup Service (Official)",
     category: "Design",
-    price: "From Rs. 1,000",
-    duration: ["1 Month", "12 Months"],
-    badges: ["Team-ready", "Secure setup"],
+    price: "Rs. 1,000 – Rs. 2,000",
+    duration: ["1 Year – Rs. 1,000", "3 Years – Rs. 2,000"],
+    badges: ["Workspace setup", "Creator-ready"],
     description:
-      "Official subscription activation + workspace setup for design tools. Great for creators and small teams.",
+      "We help you activate Canva Pro officially and configure brand kit / team settings.",
     delivery: "Same day",
     disclaimer:
-      "Only authorized/official subscriptions."
+      "Official/authorized only."
   },
   {
-    id: "vpn-config-support",
-    title: "VPN Config & Data Package Support",
-    category: "VPN",
-    price: "From Rs. 500",
-    duration: ["7 Days", "30 Days"],
-    badges: ["Guided setup", "Android/iOS"],
+    id: "adobe-cc-setup",
+    title: "Adobe Creative Cloud – Setup Service (Official)",
+    category: "Design",
+    price: "From Rs. 2,000",
+    duration: [
+      "1 Month – Team – Rs. 2,000",
+      "1 Month – K12 – Rs. 2,500",
+      "3 Months – Team – Rs. 5,000",
+      "3 Months – K12 – Rs. 5,500",
+      "6 Months – Team – Rs. 9,500",
+      "6 Months – K12 – Rs. 10,500",
+      "12 Months – Team – Rs. 12,500",
+      "12 Months – K12 – Rs. 17,500"
+    ],
+    badges: ["Pro tools", "Install help"],
     description:
-      "We guide you to set up your VPN configs, troubleshoot common issues, and optimize for your data package/network.",
-    delivery: "Within 2 hours",
-    disclaimer:
-      "We do not provide illegal access. Customer must use a legitimate VPN service."
-  },
-  {
-    id: "creator-bundle",
-    title: "Creator Bundle (Tools + Setup)",
-    category: "Bundles",
-    price: "From Rs. 2,500",
-    duration: ["1 Month", "3 Months"],
-    badges: ["Best value", "Priority support"],
-    description:
-      "A curated bundle of official tools + our setup support. Ideal for TikTok/Reels/YouTube creators.",
+      "Official subscription setup + installation guidance for Adobe Creative Cloud.",
     delivery: "Same day",
     disclaimer:
-      "Official subscriptions only."
+      "Official/authorized only."
   },
+
+  // ===================== VPN =====================
+{
+  id: "vpn-config-support",
+  title: "VPN / V2Ray Configs (Zoom • Netflix • TikTok)",
+  category: "VPN",
+  price: "Rs. 250 / Rs. 350",
+  duration: [
+    "DIALOG ZOOM (ROUTER)",
+    "HUTCH ZOOM PACKAGE",
+    "MOBITEL ZOOM PACKAGE",
+    "AIRTEL ZOOM PACKAGE",
+    "SLT ROUTER ZOOM PACKAGE",
+    "SLT ROUTER NETFLIX PACKAGE",
+    "FIBER ZOOM PACKAGE",
+    "FIBER NETFLIX PACKAGE",
+    "AIRTEL TIKTOK"
+  ],
+  // 👇 NEW: separate plan selector
+  plans: ["100GB – Rs. 250", "200GB – Rs. 350"],
+  badges: ["V2Ray configs", "Guided setup", "Android/iOS/Router"],
+  description:
+    "Select your package type + data plan. We’ll send the configs and guide setup.",
+  delivery: "10–60 minutes (typical)",
+  disclaimer:
+    "Use only for legal purposes and according to your provider terms."
+}
 ]

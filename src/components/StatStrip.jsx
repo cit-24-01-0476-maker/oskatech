@@ -3,13 +3,14 @@ import { ShieldCheck, Bolt, Headphones } from "lucide-react"
 
 export default function StatStrip() {
   const stats = [
-    { icon: <Bolt className="h-4 w-4 text-cyan-200" />, title: "Fast delivery", text: "Orders handled via chat — quick turnaround." },
-    { icon: <ShieldCheck className="h-4 w-4 text-cyan-200" />, title: "Legal + secure", text: "Official subscriptions & your own services only." },
-    { icon: <Headphones className="h-4 w-4 text-cyan-200" />, title: "Support", text: "Friendly help for setup & troubleshooting." },
+    { icon: <Bolt className="h-4 w-4 text-red-300" />, title: "Fast delivery", text: "Orders handled via chat — quick turnaround." },
+    { icon: <ShieldCheck className="h-4 w-4 text-red-300" />, title: "Legal + secure", text: "Official subscriptions & your own services only." },
+    { icon: <Headphones className="h-4 w-4 text-red-300" />, title: "Support", text: "Friendly help for setup & troubleshooting." },
   ]
 
   return (
-    <Container className="py-10">
+    // ✅ PC වල top gap අඩු (hero එකට ලඟ කරලා)
+    <Container className="py-8 lg:py-6 lg:-mt-10">
       <div className="grid gap-4 md:grid-cols-3">
         {stats.map((s) => (
           <div key={s.title} className="glass rounded-3xl p-5">
