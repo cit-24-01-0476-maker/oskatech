@@ -3,6 +3,7 @@ import { motion } from "framer-motion"
 import { ArrowRight, ShieldCheck, Sparkles, Cpu } from "lucide-react"
 import { NavLink } from "react-router-dom"
 import { SITE } from "../config.js"
+import Particles from "./Particles.jsx"
 
 const fadeUp = {
   hidden: { opacity: 0, y: 14 },
@@ -13,17 +14,21 @@ export default function Hero() {
   return (
     <section
       className="
-        cyber-grid relative overflow-hidden flex items-start
+        cyber-grid animated-bg relative overflow-hidden flex items-start
         pt-10 lg:pt-12
         lg:min-h-[78vh] xl:min-h-[82vh] 2xl:min-h-[84vh]
       "
     >
-      <div className="pointer-events-none absolute inset-0 opacity-45">
+      {/* particles */}
+      <Particles density={75} maxSpeed={0.35} />
+
+      {/* glow blobs */}
+      <div className="pointer-events-none absolute inset-0 opacity-45 z-[1]">
         <div className="absolute -top-28 left-1/2 h-[680px] w-[680px] -translate-x-1/2 rounded-full bg-red-500/25 blur-3xl" />
         <div className="absolute top-10 right-[-320px] h-[820px] w-[820px] rounded-full bg-white/10 blur-3xl" />
       </div>
 
-      <Container className="relative w-full py-5 sm:py-7 lg:py-8">
+      <Container className="relative z-[2] w-full py-5 sm:py-7 lg:py-8">
         <div className="grid items-center gap-10 xl:gap-16 xl:grid-cols-[1.25fr_0.75fr]">
           {/* LEFT */}
           <motion.div
@@ -31,12 +36,11 @@ export default function Hero() {
             animate="show"
             variants={{ show: { transition: { staggerChildren: 0.07 } } }}
           >
-            <motion.div variants={fadeUp} className="badge w-fit">
+            <motion.div variants={fadeUp} className="badge w-fit neon-soft">
               <Sparkles className="mr-2 h-3.5 w-3.5 text-white" />
               {SITE.tagline}
             </motion.div>
 
-            {/* ✅ heading line spacing a little looser */}
             <motion.h1
               variants={fadeUp}
               className="mt-5 text-4xl font-semibold leading-[1.12] sm:text-5xl lg:text-6xl xl:text-7xl"
@@ -48,7 +52,6 @@ export default function Hero() {
               .
             </motion.h1>
 
-            {/* ✅ paragraph: better readability */}
             <motion.p
               variants={fadeUp}
               className="mt-4 text-base sm:text-lg lg:text-xl text-slate-300 leading-relaxed max-w-3xl"
@@ -57,12 +60,11 @@ export default function Hero() {
               Orders go straight to your WhatsApp/Telegram in one click.
             </motion.p>
 
-            {/* ✅ small extra breathing room */}
             <motion.div variants={fadeUp} className="mt-6 flex flex-wrap gap-3">
-              <NavLink to="/store" className="btn-primary">
+              <NavLink to="/store" className="btn-primary neon-hover">
                 Browse Store <ArrowRight className="h-4 w-4" />
               </NavLink>
-              <NavLink to="/downloads" className="btn-ghost">
+              <NavLink to="/downloads" className="btn-ghost neon-hover">
                 Verified Downloads <ArrowRight className="h-4 w-4" />
               </NavLink>
             </motion.div>
@@ -72,17 +74,17 @@ export default function Hero() {
               className="mt-7 grid gap-4 sm:grid-cols-3 xl:gap-5"
             >
               <Feature
-                icon={<ShieldCheck className="h-4 w-4 text-white" />}
+                icon={<ShieldCheck className="h-4 w-4" />}
                 title="Secure"
                 text="No password sharing. Official billing only."
               />
               <Feature
-                icon={<Cpu className="h-4 w-4 text-white" />}
+                icon={<Cpu className="h-4 w-4" />}
                 title="Fast"
                 text="Quick delivery via chat."
               />
               <Feature
-                icon={<Sparkles className="h-4 w-4 text-white" />}
+                icon={<Sparkles className="h-4 w-4" />}
                 title="Premium"
                 text="Clean premium UI with animations."
               />
@@ -92,9 +94,10 @@ export default function Hero() {
           {/* RIGHT */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
             transition={{ duration: 0.8 }}
-            className="glass rounded-3xl p-6 xl:p-10 shadow-glow"
+            className="glass rounded-3xl p-6 xl:p-10 shadow-glow neon-hover"
           >
             <div className="flex items-center justify-between">
               <div className="text-sm text-slate-300">Live Order Preview</div>
@@ -108,7 +111,7 @@ export default function Hero() {
               <CardLine label="Payment" value="Bank transfer / Card link" />
             </div>
 
-            <div className="mt-7 rounded-2xl border border-white/10 bg-white/5 p-4">
+            <div className="mt-7 rounded-2xl border border-white/10 bg-white/5 p-4 neon-soft">
               <div className="text-xs text-slate-400">Message sent to WhatsApp:</div>
               <div className="mt-2 font-mono text-xs xl:text-sm leading-relaxed text-slate-200">
                 {`Hi OSKATECH 👋\nI want: AI Subscription Setup (Official)\nDuration: 1 Month\nMy email: ____\nPayment: ____\nThanks!`}
@@ -127,10 +130,22 @@ export default function Hero() {
 }
 
 function Feature({ icon, title, text }) {
+  let cardClass = "feature-card-premium"
+  let iconClass = "bg-red-500/15 text-red-300"
+
+  if (title === "Secure") {
+    cardClass = "feature-card-secure"
+    iconClass = "bg-green-500/15 text-green-300"
+  }
+  if (title === "Fast") {
+    cardClass = "feature-card-fast"
+    iconClass = "bg-sky-500/15 text-sky-300"
+  }
+
   return (
-    <div className="glass rounded-2xl p-4">
+    <div className={`feature-card ${cardClass} p-4 lg:p-3.5 neon-hover`}>
       <div className="flex items-center gap-2">
-        <div className="grid h-8 w-8 place-items-center rounded-xl border border-white/10 bg-white/5">
+        <div className={`grid h-8 w-8 place-items-center rounded-xl ${iconClass}`}>
           {icon}
         </div>
         <div className="font-medium">{title}</div>

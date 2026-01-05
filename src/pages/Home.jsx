@@ -8,6 +8,7 @@ import { useState } from "react"
 import OrderModal from "../components/OrderModal.jsx"
 import { ArrowRight } from "lucide-react"
 import { NavLink } from "react-router-dom"
+import Reveal from "../components/Reveal.jsx"
 
 export default function Home() {
   const [selected, setSelected] = useState(null)
@@ -15,53 +16,35 @@ export default function Home() {
   return (
     <div>
       <Hero />
-      <StatStrip />
 
-      {/* ✅ slightly tighter */}
+      <Reveal>
+        <StatStrip />
+      </Reveal>
+
       <Container className="py-8 lg:py-10">
-        <SectionTitle
-          eyebrow="Featured"
-          title="Popular services"
-          desc="Edit your product list inside src/data/products.js — add prices, durations, badges and delivery times."
-        />
+        <Reveal>
+          <SectionTitle
+            eyebrow="Featured"
+            title="Popular services"
+            desc="Edit your product list inside src/data/products.js — add prices, durations, badges and delivery times."
+          />
+        </Reveal>
 
         <div className="grid gap-5 md:grid-cols-2">
-          {PRODUCTS.slice(0, 2).map((p) => (
-            <ProductCard key={p.id} product={p} onOrder={setSelected} />
+          {PRODUCTS.slice(0, 2).map((p, idx) => (
+            <Reveal key={p.id} delay={0.05 * idx}>
+              <ProductCard product={p} onOrder={setSelected} />
+            </Reveal>
           ))}
         </div>
 
-        <div className="mt-7 flex justify-center">
-          <NavLink to="/store" className="btn-ghost">
-            View full store <ArrowRight className="h-4 w-4" />
-          </NavLink>
-        </div>
-      </Container>
-
-      {/* ✅ reduce bottom padding a bit */}
-      <Container className="pb-10 lg:pb-12">
-        <div className="glass rounded-3xl p-6 md:p-8">
-          <div className="grid gap-6 md:grid-cols-2 md:items-center">
-            <div>
-              <div className="badge w-fit">Pro tip</div>
-              <h3 className="mt-3 text-2xl font-semibold">Make it “next level”</h3>
-              <p className="mt-2 text-sm text-slate-300">
-                Add your payment link (Stripe / PayHere / other), upload a logo, and create a simple delivery workflow:
-                Order → Confirm → Payment → Setup → Done.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-5 text-sm text-slate-200">
-              <div className="font-medium">Suggested workflow</div>
-              <ul className="mt-3 list-disc space-y-2 pl-5 text-slate-300">
-                <li>Customer clicks <span className="text-slate-100">Order Now</span></li>
-                <li>Message lands in WhatsApp/Telegram with details</li>
-                <li>You confirm price + send payment link</li>
-                <li>After payment: activate official subscription / do setup</li>
-                <li>Send proof + quick guide video</li>
-              </ul>
-            </div>
+        <Reveal>
+          <div className="mt-7 flex justify-center">
+            <NavLink to="/store" className="btn-ghost neon-hover">
+              View full store <ArrowRight className="h-4 w-4" />
+            </NavLink>
           </div>
-        </div>
+        </Reveal>
       </Container>
 
       <OrderModal open={!!selected} product={selected} onClose={() => setSelected(null)} />

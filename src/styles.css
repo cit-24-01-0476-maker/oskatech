@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root { color-scheme: dark; }
-
 ::selection { background: rgba(239, 68, 68, 0.22); }
 
+/* ===== GLOBAL BACKGROUND ===== */
 body {
   background:
     radial-gradient(circle at 12% 10%, rgba(255,255,255,0.08), transparent 42%),
@@ -14,21 +14,21 @@ body {
   color: rgba(255,255,255,0.92);
 }
 
-/* ===== Glass ===== */
+/* ===== GLASS ===== */
 .glass {
   background: rgba(10,10,12,0.65);
   border: 1px solid rgba(255,255,255,0.14);
   backdrop-filter: blur(18px);
 }
 
-/* ===== Badge ===== */
+/* ===== BADGE ===== */
 .badge {
   @apply inline-flex items-center rounded-full px-3 py-1 text-xs;
   background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(239,68,68,0.08));
   border: 1px solid rgba(255,255,255,0.14);
 }
 
-/* ===== Buttons (base) ===== */
+/* ===== BUTTONS (base) ===== */
 .btn {
   @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition;
   line-height: 1.2;
@@ -45,7 +45,7 @@ body {
 }
 .btn-primary:hover { transform: translateY(-1px); }
 
-/* ===== Brand Buttons (same shape as before) ===== */
+/* ===== Brand Buttons (same shape) ===== */
 .btn-fb {
   @apply btn-ghost;
   background: linear-gradient(135deg, #1877f2, #0b5ed7) !important;
@@ -79,7 +79,7 @@ body {
   transform: translateY(-1px);
 }
 
-/* ===== Feature cards (colored glow) ===== */
+/* ===== FEATURE CARDS (COLOURED) ===== */
 .feature-card {
   @apply glass rounded-2xl transition;
   border: 1px solid rgba(255,255,255,0.12);
@@ -94,9 +94,34 @@ body {
 .feature-card-premium { box-shadow: 0 0 24px rgba(239,68,68,0.30); }
 .feature-card-premium:hover { box-shadow: 0 0 40px rgba(239,68,68,0.55); border-color: rgba(239,68,68,0.55); }
 
+/* ===== Animated hero background ===== */
+.animated-bg {
+  background:
+    radial-gradient(circle at 20% 10%, rgba(239,68,68,.20), transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(59,130,246,.18), transparent 45%),
+    radial-gradient(circle at 50% 85%, rgba(255,255,255,.06), transparent 55%),
+    linear-gradient(180deg, #000, #060912);
+  background-size: 140% 140%;
+  animation: bgMove 10s ease-in-out infinite;
+}
+@keyframes bgMove {
+  0%,100% { background-position: 0% 0%; }
+  50% { background-position: 100% 60%; }
+}
+
+/* ===== Neon hover (cards/buttons) ===== */
+.neon-hover {
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, filter .18s ease;
+}
+.neon-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 28px rgba(239,68,68,.26);
+  border-color: rgba(239,68,68,.35);
+}
+.neon-soft { box-shadow: 0 0 18px rgba(255,255,255,.06); }
+
 /* Text helpers */
 .text-slate-300 { color: rgba(255,255,255,0.78)!important; }
 .text-slate-400 { color: rgba(255,255,255,0.62)!important; }
 .text-slate-500 { color: rgba(255,255,255,0.46)!important; }
-
 .shadow-glow { box-shadow: 0 0 22px rgba(239,68,68,0.22); }
