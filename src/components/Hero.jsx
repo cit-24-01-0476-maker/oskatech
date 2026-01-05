@@ -1,165 +1,111 @@
-import Container from "./Container.jsx"
-import { motion } from "framer-motion"
-import { ArrowRight, ShieldCheck, Sparkles, Cpu } from "lucide-react"
-import { NavLink } from "react-router-dom"
-import { SITE } from "../config.js"
-import Particles from "./Particles.jsx"
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 14 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-}
+import { ArrowRight } from "lucide-react"
+import { Link } from "react-router-dom"
 
 export default function Hero() {
   return (
-    <section
-      className="
-        cyber-grid animated-bg relative overflow-hidden flex items-start
-        pt-10 lg:pt-12
-        lg:min-h-[78vh] xl:min-h-[82vh] 2xl:min-h-[84vh]
-      "
-    >
-      {/* particles */}
-      <Particles density={75} maxSpeed={0.35} />
+    <section className="animated-bg relative">
+      {/* ✅ Christmas snow overlay (needs .snow CSS in styles.css) */}
+      <div className="snow" />
 
-      {/* glow blobs */}
-      <div className="pointer-events-none absolute inset-0 opacity-45 z-[1]">
-        <div className="absolute -top-28 left-1/2 h-[680px] w-[680px] -translate-x-1/2 rounded-full bg-red-500/25 blur-3xl" />
-        <div className="absolute top-10 right-[-320px] h-[820px] w-[820px] rounded-full bg-white/10 blur-3xl" />
-      </div>
+      {/* content */}
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-4 pt-14 pb-10">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+          {/* Left */}
+          <div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/80">
+              🎁 Holiday Deals • Premium Tools • Instant Delivery
+            </div>
 
-      <Container className="relative z-[2] w-full py-5 sm:py-7 lg:py-8">
-        <div className="grid items-center gap-10 xl:gap-16 xl:grid-cols-[1.25fr_0.75fr]">
-          {/* LEFT */}
-          <motion.div
-            initial="hidden"
-            animate="show"
-            variants={{ show: { transition: { staggerChildren: 0.07 } } }}
-          >
-            <motion.div variants={fadeUp} className="badge w-fit neon-soft">
-              <Sparkles className="mr-2 h-3.5 w-3.5 text-white" />
-              {SITE.tagline}
-            </motion.div>
+            <h1 className="mt-5 text-4xl font-extrabold tracking-tight text-white md:text-6xl">
+              OSKATECH{" "}
+              <span className="text-red-200">Premium Store</span>
+            </h1>
 
-            <motion.h1
-              variants={fadeUp}
-              className="mt-5 text-4xl font-semibold leading-[1.12] sm:text-5xl lg:text-6xl xl:text-7xl"
-            >
-              Cyber-styled storefront for{" "}
-              <span className="bg-gradient-to-r from-white via-white/80 to-red-300 bg-clip-text text-transparent">
-                official tools & digital services
-              </span>
-              .
-            </motion.h1>
+            <p className="mt-4 max-w-xl text-white/70 leading-relaxed">
+              Buy premium subscriptions, VPN configs, and verified downloads.
+              Order goes directly to WhatsApp / Telegram in one click.
+            </p>
 
-            <motion.p
-              variants={fadeUp}
-              className="mt-4 text-base sm:text-lg lg:text-xl text-slate-300 leading-relaxed max-w-3xl"
-            >
-              Sell authorized subscriptions, setup services, and verified download links.
-              Orders go straight to your WhatsApp/Telegram in one click.
-            </motion.p>
-
-            <motion.div variants={fadeUp} className="mt-6 flex flex-wrap gap-3">
-              <NavLink to="/store" className="btn-primary neon-hover">
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link to="/store" className="btn-primary neon-hover">
                 Browse Store <ArrowRight className="h-4 w-4" />
-              </NavLink>
-              <NavLink to="/downloads" className="btn-ghost neon-hover">
-                Verified Downloads <ArrowRight className="h-4 w-4" />
-              </NavLink>
-            </motion.div>
+              </Link>
 
-            <motion.div
-              variants={fadeUp}
-              className="mt-7 grid gap-4 sm:grid-cols-3 xl:gap-5"
-            >
-              <Feature
-                icon={<ShieldCheck className="h-4 w-4" />}
-                title="Secure"
-                text="No password sharing. Official billing only."
-              />
-              <Feature
-                icon={<Cpu className="h-4 w-4" />}
-                title="Fast"
-                text="Quick delivery via chat."
-              />
-              <Feature
-                icon={<Sparkles className="h-4 w-4" />}
-                title="Premium"
-                text="Clean premium UI with animations."
-              />
-            </motion.div>
-          </motion.div>
-
-          {/* RIGHT */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.8 }}
-            className="glass rounded-3xl p-6 xl:p-10 shadow-glow neon-hover"
-          >
-            <div className="flex items-center justify-between">
-              <div className="text-sm text-slate-300">Live Order Preview</div>
-              <div className="badge">OSKATECH</div>
+              <Link to="/offers" className="btn-ghost neon-hover">
+                View Offers <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
 
-            <div className="mt-5 space-y-3 text-sm xl:text-base">
-              <CardLine label="Product" value="AI Subscription Setup (Official)" />
-              <CardLine label="Duration" value="1 Month" />
-              <CardLine label="Delivery" value="10–60 minutes" />
-              <CardLine label="Payment" value="Bank transfer / Card link" />
-            </div>
+            {/* ✅ 3 colourful 3D boxes */}
+            <div className="mt-8 grid gap-3 md:grid-cols-3">
+              <div className="feature-3d secure glass rounded-2xl p-4 border border-white/10">
+                <div className="font-semibold text-white">Secure</div>
+                <div className="mt-1 text-xs text-white/60 leading-relaxed">
+                  Trusted delivery + clear instructions.
+                </div>
+              </div>
 
-            <div className="mt-7 rounded-2xl border border-white/10 bg-white/5 p-4 neon-soft">
-              <div className="text-xs text-slate-400">Message sent to WhatsApp:</div>
-              <div className="mt-2 font-mono text-xs xl:text-sm leading-relaxed text-slate-200">
-                {`Hi OSKATECH 👋\nI want: AI Subscription Setup (Official)\nDuration: 1 Month\nMy email: ____\nPayment: ____\nThanks!`}
+              <div className="feature-3d fast glass rounded-2xl p-4 border border-white/10">
+                <div className="font-semibold text-white">Fast</div>
+                <div className="mt-1 text-xs text-white/60 leading-relaxed">
+                  Quick response via WhatsApp / Telegram.
+                </div>
+              </div>
+
+              <div className="feature-3d premium glass rounded-2xl p-4 border border-white/10">
+                <div className="font-semibold text-white">Premium</div>
+                <div className="mt-1 text-xs text-white/60 leading-relaxed">
+                  Clean UI + premium tools & offers.
+                </div>
               </div>
             </div>
+          </div>
 
-            <div className="mt-7 text-xs text-slate-400">
-              Tip: Update products/prices in{" "}
-              <span className="text-slate-200">src/data/products.js</span>
+          {/* Right (simple preview card) */}
+          <div className="lg:justify-self-end">
+            <div className="glass rounded-3xl border border-white/10 p-5 shadow-[0_0_40px_rgba(239,68,68,.12)]">
+              <div className="flex items-center justify-between">
+                <div className="text-sm font-semibold text-white/90">
+                  Live Preview
+                </div>
+                <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
+                  OSKATECH
+                </span>
+              </div>
+
+              <div className="mt-4 grid gap-3">
+                <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/70 flex justify-between">
+                  <span>Popular</span>
+                  <span className="text-white/90">ChatGPT Plus</span>
+                </div>
+
+                <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/70 flex justify-between">
+                  <span>Offer</span>
+                  <span className="text-white/90">Perplexity Pro 12M</span>
+                </div>
+
+                <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/70 flex justify-between">
+                  <span>Delivery</span>
+                  <span className="text-white/90">10–60 min</span>
+                </div>
+
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-xs text-white/70 leading-relaxed">
+                  <div className="mb-2 text-white/60">
+                    One-click order message:
+                  </div>
+                  Hi OSKATECH 👋 I want: <b>Perplexity Pro (12 Months)</b> <br />
+                  Price: <b>Rs 4,000</b> <br />
+                  Please send payment details.
+                </div>
+
+                <div className="pt-1 text-[11px] text-white/50">
+                  Tip: Offers edit කරන්න <span className="text-white/70">src/data/offers.js</span> එකේ.
+                </div>
+              </div>
             </div>
-          </motion.div>
+          </div>
         </div>
-      </Container>
-    </section>
-  )
-}
-
-function Feature({ icon, title, text }) {
-  let cardClass = "feature-card-premium"
-  let iconClass = "bg-red-500/15 text-red-300"
-
-  if (title === "Secure") {
-    cardClass = "feature-card-secure"
-    iconClass = "bg-green-500/15 text-green-300"
-  }
-  if (title === "Fast") {
-    cardClass = "feature-card-fast"
-    iconClass = "bg-sky-500/15 text-sky-300"
-  }
-
-  return (
-    <div className={`feature-card ${cardClass} p-4 lg:p-3.5 neon-hover`}>
-      <div className="flex items-center gap-2">
-        <div className={`grid h-8 w-8 place-items-center rounded-xl ${iconClass}`}>
-          {icon}
-        </div>
-        <div className="font-medium">{title}</div>
       </div>
-      <div className="mt-2 text-xs text-slate-300 leading-relaxed">{text}</div>
-    </div>
-  )
-}
-
-function CardLine({ label, value }) {
-  return (
-    <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-3 py-2">
-      <div className="text-slate-400">{label}</div>
-      <div className="text-slate-200">{value}</div>
-    </div>
+    </section>
   )
 }

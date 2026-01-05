@@ -1,151 +1,194 @@
-import { NavLink } from "react-router-dom"
-import Container from "./Container.jsx"
-import Logo from "./Logo.jsx"
-import OfferBar from "./OfferBar.jsx"
-import { MessageCircle, Send, Menu, X } from "lucide-react"
-import { useMemo, useState } from "react"
-import { SITE } from "../config.js"
+import { useEffect, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { Menu, X, Facebook, Send, MessageCircle } from "lucide-react";
+import OfferBar from "./OfferBar.jsx";
 
-const linkBase =
-  "rounded-xl px-3 py-2 text-sm transition border border-transparent hover:border-white/10 hover:bg-white/5"
-
-function FacebookIcon({ className = "h-4 w-4" }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.7-1.6 1.5V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z" />
-    </svg>
-  )
-}
+const FACEBOOK_URL = "https://www.facebook.com/share/1K2BAXP7xf/";
+const TELEGRAM_URL = "https://t.me/oskatecsl";
+const WHATSAPP_URL = "https://wa.me/94754565755";
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
 
-  const links = useMemo(
-    () => [
-      { to: "/", label: "Home" },
-      { to: "/store", label: "Store" },
-      { to: "/downloads", label: "Downloads" },
-      { to: "/offers", label: "Offers" }, // ✅ add offers in menu
-      { to: "/faq", label: "FAQ" },
-      { to: "/contact", label: "Contact" },
-    ],
-    []
-  )
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  const items = [
+    { to: "/", label: "Home" },
+    { to: "/store", label: "Store" },
+    { to: "/downloads", label: "Downloads" },
+    { to: "/offers", label: "Offers" },
+    { to: "/faq", label: "FAQ" },
+    { to: "/contact", label: "Contact" },
+  ];
+
+  const navClass = ({ isActive }) =>
+    `px-4 py-2 rounded-xl text-sm font-medium transition ${
+      isActive
+        ? "bg-white/10 text-white"
+        : "text-white/70 hover:bg-white/5 hover:text-white"
+    }`;
 
   return (
     <>
-      <div className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur">
-        <Container className="flex items-center justify-between py-3">
-          <NavLink to="/" className="focus:outline-none">
-            <Logo />
-          </NavLink>
+      <header className="site-navbar">
+        {/* FULL WIDTH HEADER */}
+        <div className="mx-auto w-full max-w-7xl px-4">
+          <div className="relative flex h-16 items-center">
+            {/* LEFT: Lightning logo (NO JPG/PNG) */}
+            <div className="flex items-center">
+              <Link to="/" className="flex items-center gap-3 select-none">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5 shadow-glow">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M13 2L3 14h8l-1 8 11-14h-8l0-6z"
+                      fill="url(#boltGrad)"
+                    />
+                    <defs>
+                      <linearGradient
+                        id="boltGrad"
+                        x1="3"
+                        y1="2"
+                        x2="21"
+                        y2="22"
+                        gradientUnits="userSpaceOnUse"
+                      >
+                        <stop stopColor="#22d3ee" />
+                        <stop offset="0.55" stopColor="#60a5fa" />
+                        <stop offset="1" stopColor="#a78bfa" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </span>
 
-          <div className="hidden items-center gap-1 md:flex">
-            {links.map((l) => (
-              <NavLink
-                key={l.to}
-                to={l.to}
-                className={({ isActive }) =>
-                  `${linkBase} ${isActive ? "bg-white/5 border-white/10" : ""}`
-                }
+                <div className="leading-tight">
+                  <div className="font-semibold text-white">OSKATECH</div>
+                  <div className="text-xs text-slate-400">premium store</div>
+                </div>
+              </Link>
+            </div>
+
+            {/* CENTER: Tabs (Desktop) */}
+            <nav className="absolute left-1/2 -translate-x-1/2 hidden lg:flex items-center gap-1">
+              {items.map((it) => (
+                <NavLink key={it.to} to={it.to} className={navClass}>
+                  {it.label}
+                </NavLink>
+              ))}
+            </nav>
+
+            {/* RIGHT: Social buttons */}
+            <div className="ml-auto flex items-center gap-2">
+              <a
+                href={FACEBOOK_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-fb px-3 py-2 neon-hover"
+                title="Facebook"
+                aria-label="Facebook"
               >
-                {l.label}
-              </NavLink>
-            ))}
+                <Facebook className="h-4 w-4" />
+              </a>
+
+              <a
+                href={TELEGRAM_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-tg hidden sm:flex px-3 py-2 neon-hover"
+                title="Telegram"
+                aria-label="Telegram"
+              >
+                <Send className="h-4 w-4" />
+              </a>
+
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-wa hidden sm:flex px-3 py-2 neon-hover"
+                title="WhatsApp"
+                aria-label="WhatsApp"
+              >
+                <MessageCircle className="h-4 w-4" />
+              </a>
+
+              {/* Mobile menu toggle */}
+              <button
+                className="lg:hidden btn-ghost px-3 py-2"
+                onClick={() => setOpen((s) => !s)}
+                aria-label="Menu"
+              >
+                {open ? (
+                  <X className="h-5 w-5" />
+                ) : (
+                  <Menu className="h-5 w-5" />
+                )}
+              </button>
+            </div>
           </div>
 
-          {/* Desktop socials */}
-          <div className="hidden items-center gap-2 md:flex">
-            <a className="btn-fb" href={SITE.facebookPage} target="_blank" rel="noreferrer">
-              <FacebookIcon className="h-4 w-4" />
-              Facebook
-            </a>
-
-            <a className="btn-tg" href={`https://t.me/${SITE.telegramUsername}`} target="_blank" rel="noreferrer">
-              <Send className="h-4 w-4" />
-              Telegram
-            </a>
-
-            <a
-              className="btn-wa"
-              href={`https://wa.me/${(SITE.whatsappNumber || "").replace(/\D/g, "")}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <MessageCircle className="h-4 w-4" />
-              WhatsApp
-            </a>
-          </div>
-
-          <button
-            className="md:hidden btn-ghost"
-            onClick={() => setOpen((v) => !v)}
-            aria-label="Toggle menu"
-          >
-            {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-          </button>
-        </Container>
-
-        {/* Mobile menu */}
-        {open && (
-          <div className="md:hidden border-t border-white/10">
-            <Container className="py-3">
-              <div className="flex flex-col gap-2">
-                {links.map((l) => (
+          {/* MOBILE MENU */}
+          {open && (
+            <div className="lg:hidden mt-2 rounded-2xl border border-white/10 bg-white/5 p-2">
+              <div className="grid gap-1">
+                {items.map((it) => (
                   <NavLink
-                    key={l.to}
-                    to={l.to}
-                    onClick={() => setOpen(false)}
+                    key={it.to}
+                    to={it.to}
                     className={({ isActive }) =>
-                      `${linkBase} ${isActive ? "bg-white/5 border-white/10" : ""}`
+                      `px-4 py-3 rounded-xl text-sm font-medium transition ${
+                        isActive
+                          ? "bg-white/10 text-white"
+                          : "text-white/70 hover:bg-white/10 hover:text-white"
+                      }`
                     }
                   >
-                    {l.label}
+                    {it.label}
                   </NavLink>
                 ))}
-
-                <div className="mt-2 grid grid-cols-3 gap-2">
-                  <a
-                    className="btn-fb"
-                    href={SITE.facebookPage}
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={() => setOpen(false)}
-                  >
-                    <FacebookIcon className="h-4 w-4" />
-                    FB
-                  </a>
-
-                  <a
-                    className="btn-tg"
-                    href={`https://t.me/${SITE.telegramUsername}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={() => setOpen(false)}
-                  >
-                    <Send className="h-4 w-4" />
-                    TG
-                  </a>
-
-                  <a
-                    className="btn-wa"
-                    href={`https://wa.me/${(SITE.whatsappNumber || "").replace(/\D/g, "")}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={() => setOpen(false)}
-                  >
-                    <MessageCircle className="h-4 w-4" />
-                    WA
-                  </a>
-                </div>
               </div>
-            </Container>
-          </div>
-        )}
-      </div>
 
-      {/* ✅ Offer banner under navbar */}
+              <div className="mt-3 grid gap-2">
+                <a
+                  className="btn-fb neon-hover w-full justify-center"
+                  href={FACEBOOK_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Facebook className="h-4 w-4" /> Facebook
+                </a>
+                <a
+                  className="btn-tg neon-hover w-full justify-center"
+                  href={TELEGRAM_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Send className="h-4 w-4" /> Telegram
+                </a>
+                <a
+                  className="btn-wa neon-hover w-full justify-center"
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <MessageCircle className="h-4 w-4" /> WhatsApp
+                </a>
+              </div>
+            </div>
+          )}
+        </div>
+      </header>
+
+      {/* Offer bar under navbar */}
       <OfferBar />
     </>
-  )
+  );
 }

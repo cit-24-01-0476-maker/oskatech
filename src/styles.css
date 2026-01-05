@@ -5,123 +5,196 @@
 :root { color-scheme: dark; }
 ::selection { background: rgba(239, 68, 68, 0.22); }
 
-/* ===== GLOBAL BACKGROUND ===== */
+/* prevent width shift */
+html { scrollbar-gutter: stable; }
+body { overflow-y: scroll; }
+html, body { width: 100%; overflow-x: hidden; }
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* ===== Base ===== */
 body {
-  background:
-    radial-gradient(circle at 12% 10%, rgba(255,255,255,0.08), transparent 42%),
-    radial-gradient(circle at 85% 18%, rgba(239,68,68,0.18), transparent 48%),
-    linear-gradient(180deg, #000 0%, #080a0e 55%, #000 100%);
+  background: #000;
   color: rgba(255,255,255,0.92);
 }
 
-/* ===== GLASS ===== */
+/* ===== FIX: navbar always above background layers ===== */
+header, .navbar, .site-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: rgba(0,0,0,.70);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ===== Premium hero background (ONLY use on Hero section) ===== */
+.animated-bg{
+  position: relative;
+  isolation: isolate; /* keeps pseudo layers inside */
+  overflow: hidden;
+  background: linear-gradient(180deg, #000 0%, #060912 60%, #000 100%);
+}
+
+.animated-bg::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  pointer-events:none;
+  z-index:-1;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(239,68,68,.18), transparent 42%),
+    radial-gradient(circle at 80% 18%, rgba(59,130,246,.14), transparent 46%),
+    radial-gradient(circle at 50% 85%, rgba(255,255,255,.06), transparent 55%);
+  opacity:.92;
+  transform: translate3d(0,0,0);
+  will-change: transform, opacity;
+  animation: glowPulse 12s ease-in-out infinite;
+}
+
+@keyframes glowPulse{
+  0%,100%{ opacity:.85; transform: translate3d(0,0,0) scale(1); }
+  50%{ opacity:1; transform: translate3d(0,-8px,0) scale(1.02); }
+}
+
+.animated-bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  opacity:.06;
+  mix-blend-mode: overlay;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.35) 0px,
+      rgba(255,255,255,.35) 1px,
+      rgba(0,0,0,0) 2px,
+      rgba(0,0,0,0) 4px
+    );
+}
+
+/* ===== Glass helpers ===== */
 .glass {
   background: rgba(10,10,12,0.65);
   border: 1px solid rgba(255,255,255,0.14);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(14px);
 }
 
-/* ===== BADGE ===== */
-.badge {
-  @apply inline-flex items-center rounded-full px-3 py-1 text-xs;
-  background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(239,68,68,0.08));
-  border: 1px solid rgba(255,255,255,0.14);
-}
-
-/* ===== BUTTONS (base) ===== */
+/* ===== Buttons ===== */
 .btn {
   @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition;
   line-height: 1.2;
 }
 
-.btn-ghost {
-  @apply btn border border-white/10 bg-white/5 text-white hover:bg-white/10;
-}
+.btn-ghost { @apply btn border border-white/10 bg-white/5 text-white hover:bg-white/10; }
 
 .btn-primary {
   @apply btn text-white;
   background: linear-gradient(135deg,#ef4444,#dc2626);
-  box-shadow: 0 0 22px rgba(239,68,68,.35);
+  box-shadow: 0 0 22px rgba(239,68,68,.30);
 }
 .btn-primary:hover { transform: translateY(-1px); }
 
-/* ===== Brand Buttons (same shape) ===== */
-.btn-fb {
+/* Brand */
+.btn-fb{
   @apply btn-ghost;
   background: linear-gradient(135deg, #1877f2, #0b5ed7) !important;
-  border-color: rgba(255,255,255,0.12) !important;
-  box-shadow: 0 0 18px rgba(24, 119, 242, 0.25);
+  box-shadow: 0 0 18px rgba(24,119,242,0.25);
 }
-.btn-fb:hover {
-  box-shadow: 0 0 30px rgba(24,119,242,0.40);
-  transform: translateY(-1px);
-}
-
-.btn-tg {
+.btn-tg{
   @apply btn-ghost;
   background: linear-gradient(135deg, #2aabee, #7dd3fc) !important;
-  border-color: rgba(255,255,255,0.12) !important;
-  box-shadow: 0 0 18px rgba(42,171,238,0.25);
+  box-shadow: 0 0 18px rgba(42,171,238,0.20);
 }
-.btn-tg:hover {
-  box-shadow: 0 0 30px rgba(42,171,238,0.40);
-  transform: translateY(-1px);
-}
-
-.btn-wa {
+.btn-wa{
   @apply btn-ghost;
   background: linear-gradient(135deg, #25d366, #16a34a) !important;
-  border-color: rgba(255,255,255,0.12) !important;
-  box-shadow: 0 0 18px rgba(37,211,102,0.22);
-}
-.btn-wa:hover {
-  box-shadow: 0 0 30px rgba(37,211,102,0.36);
-  transform: translateY(-1px);
+  box-shadow: 0 0 18px rgba(37,211,102,0.18);
 }
 
-/* ===== FEATURE CARDS (COLOURED) ===== */
-.feature-card {
-  @apply glass rounded-2xl transition;
-  border: 1px solid rgba(255,255,255,0.12);
+/* Hover helper */
+.neon-hover{
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  will-change: transform;
 }
-
-.feature-card-secure { box-shadow: 0 0 22px rgba(34,197,94,0.25); }
-.feature-card-secure:hover { box-shadow: 0 0 36px rgba(34,197,94,0.45); border-color: rgba(34,197,94,0.45); }
-
-.feature-card-fast { box-shadow: 0 0 22px rgba(56,189,248,0.25); }
-.feature-card-fast:hover { box-shadow: 0 0 36px rgba(56,189,248,0.45); border-color: rgba(56,189,248,0.45); }
-
-.feature-card-premium { box-shadow: 0 0 24px rgba(239,68,68,0.30); }
-.feature-card-premium:hover { box-shadow: 0 0 40px rgba(239,68,68,0.55); border-color: rgba(239,68,68,0.55); }
-
-/* ===== Animated hero background ===== */
-.animated-bg {
-  background:
-    radial-gradient(circle at 20% 10%, rgba(239,68,68,.20), transparent 40%),
-    radial-gradient(circle at 80% 20%, rgba(59,130,246,.18), transparent 45%),
-    radial-gradient(circle at 50% 85%, rgba(255,255,255,.06), transparent 55%),
-    linear-gradient(180deg, #000, #060912);
-  background-size: 140% 140%;
-  animation: bgMove 10s ease-in-out infinite;
-}
-@keyframes bgMove {
-  0%,100% { background-position: 0% 0%; }
-  50% { background-position: 100% 60%; }
-}
-
-/* ===== Neon hover (cards/buttons) ===== */
-.neon-hover {
-  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, filter .18s ease;
-}
-.neon-hover:hover {
+.neon-hover:hover{
   transform: translateY(-3px);
-  box-shadow: 0 0 28px rgba(239,68,68,.26);
-  border-color: rgba(239,68,68,.35);
+  box-shadow: 0 0 28px rgba(239,68,68,.18);
+  border-color: rgba(239,68,68,.26);
 }
-.neon-soft { box-shadow: 0 0 18px rgba(255,255,255,.06); }
 
-/* Text helpers */
-.text-slate-300 { color: rgba(255,255,255,0.78)!important; }
-.text-slate-400 { color: rgba(255,255,255,0.62)!important; }
-.text-slate-500 { color: rgba(255,255,255,0.46)!important; }
-.shadow-glow { box-shadow: 0 0 22px rgba(239,68,68,0.22); }
+/* ✅ Logo 3D popup */
+.logo-pop{
+  transform: translateZ(0);
+  transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
+  will-change: transform;
+}
+.logo-pop:hover{
+  transform: translateY(-2px) scale(1.03);
+  filter: saturate(1.12);
+  box-shadow: 0 0 24px rgba(239,68,68,.16), 0 0 18px rgba(59,130,246,.14);
+}
+
+/* ✅ Feature cards 3D colourful */
+.feature-3d{
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  will-change: transform;
+}
+.feature-3d:hover{ transform: translateY(-4px); }
+
+.feature-3d.secure:hover{ box-shadow: 0 0 28px rgba(34,197,94,.22); border-color: rgba(34,197,94,.35); }
+.feature-3d.fast:hover{ box-shadow: 0 0 28px rgba(56,189,248,.22); border-color: rgba(56,189,248,.35); }
+.feature-3d.premium:hover{ box-shadow: 0 0 28px rgba(239,68,68,.22); border-color: rgba(239,68,68,.35); }
+
+/* ===== Holiday Snow Effect (lightweight) ===== */
+.snow {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.snow::before,
+.snow::after {
+  content: "";
+  position: absolute;
+  inset: -200px 0 0 0;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.95) 0 1px, transparent 2px),
+    radial-gradient(circle, rgba(255,255,255,.75) 0 1px, transparent 2px),
+    radial-gradient(circle, rgba(255,255,255,.55) 0 1px, transparent 2px);
+  background-size: 220px 220px, 340px 340px, 520px 520px;
+  background-position: 0 0, 50px 80px, 120px 20px;
+  opacity: .18;
+  filter: blur(.2px);
+  animation: snowFall 14s linear infinite;
+  transform: translate3d(0,0,0);
+}
+
+.snow::after {
+  opacity: .10;
+  animation-duration: 24s;
+  background-size: 280px 280px, 420px 420px, 650px 650px;
+}
+
+@keyframes snowFall {
+  from { transform: translate3d(0, -120px, 0); }
+  to   { transform: translate3d(0, 320px, 0); }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .snow::before,
+  .snow::after { animation: none !important; }
+}
+
