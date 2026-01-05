@@ -1,1 +1,0 @@
-import{j as s}from"./index-C64usApJ.js";function l({eyebrow:t,title:i,desc:e}){return s.jsxs("div",{className:"mb-6",children:[t&&s.jsx("div",{className:"badge w-fit",children:t}),s.jsx("h2",{className:"mt-3 text-2xl font-semibold",children:i}),e&&s.jsx("p",{className:"mt-2 text-sm text-slate-300",children:e})]})}export{l as S};
